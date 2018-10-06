@@ -43,7 +43,7 @@ switch (upper(method))
         methodColor = 'b';
     otherwise 
         error('No such method of trajectory calculation');
-        range = 0;
+        xRange = 0;
 end
         
 
@@ -104,11 +104,47 @@ while (r(i, 2) > 0)
 end
 %Grab the range as the final x position of the baseball
 range = r(end,1);
-height = interpl(r(:,1), r(:,2), pitchLength, 'pchip';
+height = interpl(r(:,1), r(:,2), pitchLength
 
 %Plot the baseball trajectory
-plot(r(:,1),r(:,2),'r.', 'MarkerSize', 2);
-plot(range, height, 'bo');
+%If it's a home run, plot a blue line, otherwise plot a red one
+if homer
+    plot(r(:,1),r(:,2),'b-', 'LineWidth', 1);
+    
+else
+    plot(r(:,1),r(:,2),'r.', 'MarkerSize', 2);
+end
 
+%disp(sprintf('The baseball was in the air for %s seconds', num2str(t)));
+%disp(sprintf('It had a horizontal range of %.2f meters', xRange));
+
+%121.92m = 400ft
+
+
+
+
+
+
+%xlabel('range (m)');
+%ylabel('height (m)');
+
+
+%    switch(upper(method))
+%        case 'EULER'
+%            ;
+%        case 'EULER-CROMER'
+%            ;
+%        case 'MIDPOINT'
+%            ;
+%    end
+    
+    
+    
+    
+    
+    
+    %UNTITLED Summary of this function goes here
+    %   Detailed explanation goes here
+    
 end
 
