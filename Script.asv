@@ -37,14 +37,14 @@
 % These stepwise methods are iterative, so our function implements a
 % while loop. This while loop terminates when the ball hits the ground. The loop algorithm is explained below: 
 % 
-% * *Calculate the acceleration of the baseball using its equation of
+% *-Calculate the acceleration of the baseball using its equation of
 % motion*
 %
-% * *Calculate the ball's new velocity according to the method being used*
+% *-Calculate the ball's new velocity according to the method being used*
 %
-% * *Calculate the ball's new position according to the method being used*
+% *-Calculate the ball's new position according to the method being used*
 %
-% * *Repeat till the ball hits the ground*
+% *-Repeat till the ball hits the ground*
 %
 % This function finally outputs the range of the ball, and the height of
 % the ball when it passes the length of the pitch (when it would hit, or
@@ -60,7 +60,7 @@
 figure(1);
 baseball(50, 45, 0.1, 'euler', 'x-intercept', 1);
 baseball(50, 45, 0.1, 'euler', 'air', 0, 'x-intercept', 1);
-legend('Euler Method', 'x-intercepts', 'Theory (No air)');
+legend('Midpoint Method', 'x-intercepts', 'Theory (No air)');
 %%
 % *Figure 1:* Euler method output from *baseball()* for an initial height of 1 m, initial
 % speed of 50 m/s, angle of 45 degrees, and a time step of 0.1s
@@ -71,7 +71,7 @@ legend('Euler Method', 'x-intercepts', 'Theory (No air)');
 figure(2);
 baseball(50, 45, 0.1, 'euler-cromer', 'x-intercept', 1);
 baseball(50, 45, 0.1, 'euler-cromer', 'air', 0, 'x-intercept', 1);
-legend('Euler-Cromer Method', 'x-intercepts', 'Theory (No air)');
+legend('Midpoint Method', 'x-intercepts', 'Theory (No air)');
 %%
 % *Figure 2:* Euler-Cromer method output from *baseball()* for an initial height of 1 m, initial
 % speed of 50 m/s, angle of 45 degrees, and a time step of 0.1s
@@ -87,8 +87,8 @@ legend('Midpoint Method', 'x-intercepts', 'Theory (No air)');
 % *Figure 3:* Midpoint method output from *baseball()* for an initial height of 1 m, initial
 % speed of 50 m/s, angle of 45 degrees, and a time step of 0.1s
 %
-% These figures agree nicely with the figure in the textbook which
-% implemented the Euler method and used the same input parameters.
+% This figures agree nicely with the figure in the textbook which
+% implemented the Euler method and used the same input parameters
 %% 3. The *ABtoHR()* Function
 %% 3.0 Description
 % The second step in our analysis was to create a function *ABtoHR()* which determines the at bats to home runs ratio for our RDH.  
@@ -119,35 +119,29 @@ legend('Midpoint Method', 'x-intercepts', 'Theory (No air)');
 %%
 
 %Determine a number of at bats
-atBats = 10000;
+atBats = 100;
 %Determine a maximum fence height
 maxFenceHeight = 15;
-%Retrieve AB/HR ratios for various fence heights
+%Retrieve AB/HR ratios for various fence heig
 for fenceHeight = 0:maxFenceHeight*10
     i = fenceHeight+1;
     ratios(i) = ABtoHR(atBats, fenceHeight/10);
 end
 %%
 % A quadtratic was also fitted to our data and its roots were used to
-% determine the minimum fence height.
+% determine the minimum fence height
 %%
 
-%Retrieve quadratic coefficients a, b, and c from our ratios vs.
-%fenceheight data
 quadCoeffs = coeffvalues(fit((0:0.1:maxFenceHeight)', ratios', 'poly2'));
-%subtract c by 10 so that our zeros determine the intersection of AB/HR =
-%10 and the quadtratic fit
 quadCoeffs(3) = quadCoeffs(3) - 10;
-%Determine the roots. The positive root is our minimum fence height
 r = roots(quadCoeffs);
 minFenceHeight = r(r>0);
-
 %% 4.1 Analysis
 % The following figure was produced to show the appropriate fence
 % height in order for the RDH to maintain an AB/HR above 10. Ratios determined from our results in 4.0 are
 % plotted against varying fence heights at 400ft, and the horizontal line shows
 % a ratio of 10. The black circle is the intersection of our polynomial fit
-% with the AB/HR = 10 line, and it shows our optimum fence height.
+% with the AB/HR = 10 line, and it determines our optimum fence height
 %%
 figure(4);
 hold on
@@ -159,25 +153,21 @@ text(minFenceHeight, 9,txt{1});
 ylabel('At Bats to Home Runs Ratio AB/HR');
 xlabel('Fence Height (m)');
 title('AB/HR ratios by the RDH vs. various fence heights at 400ft');
-
 %%
 % *Figure 4:* AB/HR ratios plotted against varying fence heights
 %
-% This figure shows the fence height at which the AB/HR ratio begins to stay above 10. This is the fence height at 400ft which will be
+% This figure shows that at around a fence height of 8.4m, the AB/HR ratio
+% begins to stay above 10. 8.4m is the fence height at 400ft which will be
 % reccomended to the league.
 %% 5. Conclusion
 % In conculsion, using the *baseball()* function we were able to determine
-% approximate trajectories of hits by the RDH using iterative ODE solver
+% approximate trajectories of hits by the RDH using interative ODE solver
 % methods. The function *ABtoHR()* was then used to calculate the ratio of
 % at bats to home runs using the *baseball()* function to determine if a
 % trajectory was a home run for a normal distribution of initial speeds and
 % launch angles. In our final analysis, several AB/HR ratios were calculated for
 % different fence heights, and it was determined that the league should
-% consider installing fences at a minimum height of:
-%%
-disp(strcat(num2str(minFenceHeight),'m'));
-%%
-% in every stadium (standard 400ft pitch length) if the
+% consider installing fences at a minimum of 8.4m in every stadium (standard 400ft pitch length) if the
 % RDH is to be implemented for the 2020/2021 season. Any lower of a fence
 % will allow the RDH to maintain an AB/HR ratio below 10, which would place our 
 % robotic friend beyond the ranks of the great Babe Ruth.
