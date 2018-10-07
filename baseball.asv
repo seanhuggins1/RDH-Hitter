@@ -24,21 +24,28 @@
 % Varargin:
 % =========
 %
-% 'air'             [1] set to 0 to turn air resistance off
-% 'plot'            [1] set to 0 to turn trajectory plotting off
-% 'x-intercept'     [0] set to 1 to show the x-intercept on the plot
-% 'fence-intercept'	[0] set to 1 to show the fence-intercept on the plot
+% 'air'             [0] 1/0 for lots/no screen output
+% 'plot'            [0] set to 1 to make a simple y(x) plot
+% 'x-intercept'     [0] set to 1 to make a simple y(x) plot
+% 'fence-intercept'	[0] set to 1 to make a simple y(x) plot
 %
 % Requires: no external m-files
 % =========
 %
-% Example Use: [range,height] = baseball(30, 45, 0.1, 'euler-cromer', 'air', 0, 'x-intercept', 1);
+% Example Use: y=function_skeleton([1:10],'Verbose',1,'Plot',1);
 % ============
+%
+% To Do: 
+% ======
+% 
+% Screen listing and plot only work if input is a vector
+% (i.e. row or column matrix). Would be nice to have some useage
+% for matrix input.
 %
 % Author:
 % =======
 %
-% SHuggins 7 Oct. 2018
+% ASigut 19 Sept. 2018
 %
 function [range, height] = baseball(ballSpeed, launchAngle, tau, method, varargin)
   

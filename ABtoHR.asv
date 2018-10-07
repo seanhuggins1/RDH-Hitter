@@ -1,29 +1,42 @@
 % function [ratio] = ABtoHR(atBats, fenceHeight)
 %
-% Function which calculates the AB/HR ratio for the robotic designated
-% hitter
+% Function which calculates the AB/HR ratio for the robotic 
+%
+% Square funcInput and return as funcOutput. [] is returned on error.
 %
 % Required Input:
 % ===============
 %
-% atBats (:) number of times the RDH is up to bat.
-% fenceHeight (:) height of the fence at the 400ft mark on the pitch.
+% funcInput	(:) input vector of numbers.
 %
 % Output:
 % =======
 %
-% ratio	(:) AB/HR ratio, returns 0 if there were no home runs.
+% funcOuput	(:) output vector of numbers. Returns [] on error.
+%
+% Varargin:
+% =========
+%
+% 'Verbose'	[0] 1/0 for lots/no screen output
+% 'Plot'	[0] set to 1 to make a simple y(x) plot
 %
 % Requires: no external m-files
 % =========
 %
-% Example Use: ratio=ABtoHR(1000,10);
+% Example Use: y=function_skeleton([1:10],'Verbose',1,'Plot',1);
 % ============
+%
+% To Do: 
+% ======
+% 
+% Screen listing and plot only work if input is a vector
+% (i.e. row or column matrix). Would be nice to have some useage
+% for matrix input.
 %
 % Author:
 % =======
 %
-% SHuggins 7 Oct. 2018
+% ASigut 19 Sept. 2018
 %
 function [ratio] = ABtoHR(atBats, fenceHeight)
 
